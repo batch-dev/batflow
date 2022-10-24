@@ -4,6 +4,7 @@ go 1.19
 
 require (
 	github.com/spf13/cobra v1.6.0
+	github.com/stretchr/testify v1.8.0
 	go.temporal.io/sdk v1.17.0
 )
 
@@ -23,7 +24,6 @@ require (
 	github.com/robfig/cron v1.2.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/stretchr/objx v0.4.0 // indirect
-	github.com/stretchr/testify v1.8.0 // indirect
 	go.temporal.io/api v1.11.1-0.20220907050538-6de5285cf463 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
 	golang.org/x/net v0.0.0-20220906165146-f3363e06e74c // indirect
