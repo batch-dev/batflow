@@ -1,0 +1,10 @@
+jobs:
+  job-1:
+    steps:
+      - run: date
+      - run: sleep 3
+      - run: date
+  job-2:
+    steps:
+      - run: hostname
+      - run: pwd

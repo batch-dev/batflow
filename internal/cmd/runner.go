@@ -7,18 +7,18 @@ import (
 	"go.temporal.io/sdk/worker"
 )
 
-func getWorkerCommand() *cobra.Command {
+func getRunnerCommand() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "worker",
-		Short: "Serve Batflow Worker",
+		Use:   "runner",
+		Short: "Serve Batflow Runner",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			return server()
+			return runner()
 		},
 	}
 	return cmd
 }
 
-func server() error {
+func runner() error {
 	c, err := client.Dial(client.Options{})
 	if err != nil {
 		return err
@@ -26,8 +26,9 @@ func server() error {
 	defer c.Close()
 
 	w := worker.New(c, batflow.BatflowTaskQueue, worker.Options{})
-	w.RegisterWorkflow(batflow.ExecWorkflow)
-	w.RegisterActivity(batflow.Exec)
+	w.RegisterWorkflow(batflow.RunWorkflow)
+	w.RegisterWorkflow(batflow.RunJob)
+	w.RegisterActivity(batflow.RunStep)
 	err = w.Run(worker.InterruptCh())
 	return err
 }

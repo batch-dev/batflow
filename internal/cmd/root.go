@@ -7,7 +7,7 @@ func GetRootCommand() *cobra.Command {
 		Use:   "batflow",
 		Short: "Manages Batch Flow",
 	}
-	cmd.AddCommand(getWorkerCommand())
-	cmd.AddCommand(getExecCommand())
+	cmd.AddCommand(getRunnerCommand())
+	cmd.AddCommand(getSubmitCommand())
 	return cmd
 }

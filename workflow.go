@@ -1,17 +1,22 @@
 package batflow
 
 import (
-	"time"
-
 	"go.temporal.io/sdk/workflow"
 )
 
-func ExecWorkflow(ctx workflow.Context, input ExecInput) (ExecOutput, error) {
-	options := workflow.ActivityOptions{
-		StartToCloseTimeout: time.Second * 5,
+type Workflow struct {
+	Name string
+	Jobs map[string]Job
+}
+
+func RunWorkflow(ctx workflow.Context, wf Workflow) error {
+	logger := workflow.GetLogger(ctx)
+
+	for _, job := range wf.Jobs {
+		if err := workflow.ExecuteChildWorkflow(ctx, RunJob, job).Get(ctx, nil); err != nil {
+			logger.Info("run job", "error", err, "name", job.Name)
+		}
 	}
-	ctx = workflow.WithActivityOptions(ctx, options)
-	var output ExecOutput
-	err := workflow.ExecuteActivity(ctx, Exec, input).Get(ctx, &output)
-	return output, err
+
+	return nil
 }
