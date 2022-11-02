@@ -25,7 +25,9 @@ func runner() error {
 	}
 	defer c.Close()
 
-	w := worker.New(c, batflow.BatflowTaskQueue, worker.Options{})
+	w := worker.New(c, batflow.BatflowTaskQueue, worker.Options{
+		EnableSessionWorker: true,
+	})
 	w.RegisterWorkflow(batflow.RunWorkflow)
 	w.RegisterWorkflow(batflow.RunJob)
 	w.RegisterActivity(batflow.RunStep)
