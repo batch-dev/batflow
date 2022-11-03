@@ -9,6 +9,7 @@ import (
 type Job struct {
 	Name  string
 	Steps []Step
+	Needs []string
 }
 
 func RunJob(ctx workflow.Context, job Job) error {
